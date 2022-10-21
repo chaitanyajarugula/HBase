@@ -37,12 +37,18 @@ public class InsertText extends Configured implements Tool{
 			admin.createTable(htb);
 		}
 		@SuppressWarnings("resource")
-		BufferedReader br = new BufferedReader(new FileReader("movie_sample.txt"));
-		String line;
+		BufferedReader br = new BufferedReader(new FileReader("movies.txt"));
+		String line="";
 		String[] store = new String[8];
 		int index = 0;
+		int count_million = 0;
+		int rows = 0;
+		try {
 		while((line = br.readLine())!=null){
-			if(line.isEmpty()) 
+			count_million+=1;
+			if(count_million==10962)
+				break;
+			if(index==8) 
 			{//System.out.println(Arrays.toString(store)); 
 			String productId = store[0];
 			String userId = store[1];
@@ -53,7 +59,8 @@ public class InsertText extends Configured implements Tool{
 			String summary = store[6];
 			String text = store[7];
 			index = 0;
-			Put put = new Put(Bytes.toBytes(productId.concat(userId)));
+			//System.out.println(productId);
+			Put put = new Put(Bytes.toBytes(productId.concat(userId).concat(time).concat(summary)));
 			put.add(Bytes.toBytes("Product"), Bytes.toBytes("ProductId"), Bytes.toBytes(productId));
 			put.add(Bytes.toBytes("User"), Bytes.toBytes("UserId"), Bytes.toBytes(userId));
 			put.add(Bytes.toBytes("User"), Bytes.toBytes("profileName"), Bytes.toBytes(profileName));
@@ -65,10 +72,24 @@ public class InsertText extends Configured implements Tool{
 	    	HTable hTable = new HTable(conf, Table_name);
 	    	hTable.put(put);
 	    	hTable.close();
+	    	rows++;
 			continue;
 			}
+			if(line.isEmpty()) {
+				continue;
+			}
+			
 			String[] item = line.split(": ");
+			//System.out.println(item[1]);
 			store[index++] = item[item.length-1];
+		}
+			
+		}
+		catch(Exception e) {
+			System.out.println(Arrays.toString(store));
+			System.out.print(line);
+			e.printStackTrace();
+			
 		}
 		String productId = store[0];
 		String userId = store[1];
@@ -90,7 +111,8 @@ public class InsertText extends Configured implements Tool{
     	HTable hTable = new HTable(conf, Table_name);
     	hTable.put(put);
     	hTable.close();
-		System.out.println("load finished");
+    	rows++;
+		System.out.println("load finished"+rows);
 		return 0;
 	}
     public static void main(String[] argv) throws Exception {
