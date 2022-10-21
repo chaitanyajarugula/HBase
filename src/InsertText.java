@@ -46,7 +46,7 @@ public class InsertText extends Configured implements Tool{
 		try {
 		while((line = br.readLine())!=null){
 			count_million+=1;
-			if(count_million==10962)
+			if(count_million==900000)
 				break;
 			if(index==8) 
 			{//System.out.println(Arrays.toString(store)); 
@@ -79,7 +79,7 @@ public class InsertText extends Configured implements Tool{
 				continue;
 			}
 			
-			String[] item = line.split(": ");
+			String[] item = line.split(": ",2);
 			//System.out.println(item[1]);
 			store[index++] = item[item.length-1];
 		}
@@ -91,27 +91,6 @@ public class InsertText extends Configured implements Tool{
 			e.printStackTrace();
 			
 		}
-		String productId = store[0];
-		String userId = store[1];
-		String profileName = store[2];
-		String helpfulness = store[3];
-		String score = store[4];
-		String time = store[5];
-		String summary = store[6];
-		String text = store[7];
-		Put put = new Put(Bytes.toBytes(productId.concat(userId)));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("ProductId"), Bytes.toBytes(productId));
-		put.add(Bytes.toBytes("User"), Bytes.toBytes("UserId"), Bytes.toBytes(userId));
-		put.add(Bytes.toBytes("User"), Bytes.toBytes("profileName"), Bytes.toBytes(profileName));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("helpfulness"), Bytes.toBytes(helpfulness));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("score"), Bytes.toBytes(score));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("time"), Bytes.toBytes(time));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("summary"), Bytes.toBytes(summary));
-		put.add(Bytes.toBytes("Product"), Bytes.toBytes("text"), Bytes.toBytes(text));
-    	HTable hTable = new HTable(conf, Table_name);
-    	hTable.put(put);
-    	hTable.close();
-    	rows++;
 		System.out.println("load finished"+rows);
 		return 0;
 	}
