@@ -44,7 +44,7 @@ public class InsertText extends Configured implements Tool{
 		int count_million = 0;
 		int rows = 0;
 		try {
-		while((line = br.readLine())!=null){
+		while((line = br.readLine())!=null || index == 8){
 			count_million+=1;
 			if(count_million==900000)
 				break;
@@ -79,7 +79,7 @@ public class InsertText extends Configured implements Tool{
 				continue;
 			}
 			
-			String[] item = line.split(": ",2);
+			String[] item = line.split(": ", 2);
 			//System.out.println(item[1]);
 			store[index++] = item[item.length-1];
 		}
