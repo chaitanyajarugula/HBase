@@ -44,10 +44,8 @@ public class InsertText extends Configured implements Tool{
 		int count_million = 0;
 		int rows = 0;
 		try {
-		while((line = br.readLine())!=null || index == 8){
+		while((line = br.readLine())!=null || index==8){
 			count_million+=1;
-			if(count_million==900000)
-				break;
 			if(index==8) 
 			{//System.out.println(Arrays.toString(store)); 
 			String productId = store[0];
@@ -60,7 +58,7 @@ public class InsertText extends Configured implements Tool{
 			String text = store[7];
 			index = 0;
 			//System.out.println(productId);
-			Put put = new Put(Bytes.toBytes(productId.concat(userId).concat(time).concat(summary)));
+			Put put = new Put(Bytes.toBytes(productId.concat(userId).concat(time)));
 			put.add(Bytes.toBytes("Product"), Bytes.toBytes("ProductId"), Bytes.toBytes(productId));
 			put.add(Bytes.toBytes("User"), Bytes.toBytes("UserId"), Bytes.toBytes(userId));
 			put.add(Bytes.toBytes("User"), Bytes.toBytes("profileName"), Bytes.toBytes(profileName));
@@ -73,17 +71,13 @@ public class InsertText extends Configured implements Tool{
 	    	hTable.put(put);
 	    	hTable.close();
 	    	rows++;
+			if(count_million==900000)
+				break;
 			continue;
-			}
-			if(line.isEmpty()) {
-				continue;
-			}
-			
+			}			
 			String[] item = line.split(": ", 2);
-			//System.out.println(item[1]);
 			store[index++] = item[item.length-1];
-		}
-			
+		}	
 		}
 		catch(Exception e) {
 			System.out.println(Arrays.toString(store));
@@ -91,7 +85,7 @@ public class InsertText extends Configured implements Tool{
 			e.printStackTrace();
 			
 		}
-		System.out.println("load finished"+rows);
+		System.out.println("loaded:" +rows+" rows" );
 		return 0;
 	}
     public static void main(String[] argv) throws Exception {

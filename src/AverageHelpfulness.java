@@ -38,8 +38,8 @@ public class AverageHelpfulness {
 			helpfulness_fraction+=0;
 			else
 			helpfulness_fraction+= (accepted/total);
-			System.out.println("current_score:"+String.valueOf(helpfulness_fraction)+"Score"+helpfulness+"recordcount: "+row_count);
+			//System.out.println("current_score:"+String.valueOf(helpfulness_fraction)+"Score"+helpfulness+"recordcount: "+row_count);
 		}
-		System.out.println(helpfulness_fraction/row_count);
+		System.out.println("Average helpfulness: "+ helpfulness_fraction/row_count);
     }
 }

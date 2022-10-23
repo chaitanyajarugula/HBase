@@ -42,20 +42,15 @@ public class ScoreCount {
 		Scan scan = new Scan();
 		scan.setFilter(allFilters);
 		
-		//now we extract the result
 		ResultScanner scanner = hTable.getScanner(scan);
 		int row_count = 0;
 		for(Result result=scanner.next(); result!=null; result=scanner.next()) {
 			row_count++;
-			String retweets=new String(result.getValue(
+			String score=new String(result.getValue(
 					Bytes.toBytes("Product"),
 					Bytes.toBytes("score")));
-			
-			String tweet_text=new String(result.getValue(
-					Bytes.toBytes("User"),
-					Bytes.toBytes("UserId")));
-			System.out.println("Retweets:"+retweets + "|||Tweet_Text:"+tweet_text);
+			//System.out.println("score:"+score);
 		}
-		System.out.println(row_count);
+		System.out.println("number of rows "+ row_count);
     }
 }

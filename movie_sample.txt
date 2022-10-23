@@ -1,7 +1,7 @@
 product/productId: B003AI2VGA
 review/userId: A141HP4LYPWMSR
 review/profileName: Brian E. Erland "Rainbow Sphinx"
-review/helpfulness: 7/7
+review/helpfulness: 1/4
 review/score: 3.0
 review/time: 1182729600
 review/summary: "There Is So Much Darkness Now ~ Come For The Miracle"
@@ -10,7 +10,7 @@ review/text: Synopsis: On the daily trek from Juarez, Mexico to El Paso, Texas a
 product/productId: B003AI2VGA
 review/userId: A328S9RN3U5M68
 review/profileName: Grady Harp
-review/helpfulness: 4/4
+review/helpfulness: 1/2
 review/score: 3.0
 review/time: 1181952000
 review/summary: Worthwhile and Important Story Hampered by Poor Script and Production
